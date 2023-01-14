@@ -97,10 +97,10 @@ class CycleEventStore implements EventStore, EventStoreManagement
     private function deserializeEvent(EventInterface $event): DomainMessage
     {
         $payload = $this->payloadSerializer->deserialize(
-            json_decode($event->getPayload(), true, 512, JSON_THROW_ON_ERROR)
+            json_decode($event->getPayload(), true, 512, \JSON_THROW_ON_ERROR)
         );
         $metadata = $this->metadataSerializer->deserialize(
-            json_decode($event->getMetadata(), true, 512, JSON_THROW_ON_ERROR)
+            json_decode($event->getMetadata(), true, 512, \JSON_THROW_ON_ERROR)
         );
 
         return new DomainMessage(
@@ -117,11 +117,12 @@ class CycleEventStore implements EventStore, EventStoreManagement
      */
     private function createEvent(DomainMessage $domainMessage): EventInterface
     {
+        /** @psalm-suppress ArgumentTypeCoercion */
         return $this->factory->create(
             $domainMessage->getId(),
             $domainMessage->getPlayhead(),
-            json_encode($this->payloadSerializer->serialize($domainMessage->getPayload()), JSON_THROW_ON_ERROR),
-            json_encode($this->metadataSerializer->serialize($domainMessage->getMetadata()), JSON_THROW_ON_ERROR),
+            json_encode($this->payloadSerializer->serialize($domainMessage->getPayload()), \JSON_THROW_ON_ERROR),
+            json_encode($this->metadataSerializer->serialize($domainMessage->getMetadata()), \JSON_THROW_ON_ERROR),
             $domainMessage->getType(),
             $domainMessage->getRecordedOn()->toNative()
         );

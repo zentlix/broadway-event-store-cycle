@@ -6,6 +6,13 @@ namespace Spiral\Broadway\EventStore\Cycle\Entity;
 
 class Event implements EventInterface
 {
+    /**
+     * @psalm-param non-empty-string $uuid
+     * @psalm-param positive-int|0 $playhead
+     * @psalm-param non-empty-string $payload
+     * @psalm-param non-empty-string $metadata
+     * @psalm-param non-empty-string $type
+     */
     public function __construct(
         protected string $uuid,
         protected int $playhead,
