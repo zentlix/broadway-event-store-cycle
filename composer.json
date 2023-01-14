@@ -4,7 +4,9 @@
     "homepage": "https://github.com/zentlix/broadway-event-store-cycle",
     "license": "MIT",
     "require": {
-        "php": "^8.1"
+        "php": "^8.1",
+        "broadway/broadway": "^2.4",
+        "cycle/orm": "^2.2"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
